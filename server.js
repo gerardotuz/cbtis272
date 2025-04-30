@@ -1,23 +1,21 @@
-const app = require('./app');
+require('dotenv').config();
+const express = require('express');
 const connectToDB = require('./config/dbConnect');
-const cloudinary = require('cloudinary');
+const cors = require('cors');
 
-(async () => {
-    try {
-        connectToDB();
+const app = express();
+const port = process.env.PORT || 10000;
 
-        // cloudinary config
-        cloudinary.config({
-            cloud_name: process.env.CLOUDINARY_NAME,
-            api_key: process.env.CLOUDINARY_API_KEY,
-            api_secret: process.env.CLOUDINARY_API_SECRET
-        })
+app.use(cors());
+app.use(express.json());
 
-        app.listen(process.env.PORT, () => {
-            console.log(`SERVER IS RUNNING ON PORT ${process.env.PORT}`)
-        })
+// Agregar esta ruta raíz
+app.get('/', (req, res) => {
+  res.send('¡API funcionando correctamente desde Render!');
+});
 
-    } catch (err) {
-        console.error("ERROR: ", err);
-    }
-})();
+connectToDB();
+
+app.listen(port, () => {
+  console.log(`SERVER IS RUNNING ON PORT ${port}`);
+});
