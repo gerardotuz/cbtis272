@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Agregar esta ruta raíz
 app.get('/', (req, res) => {
-  res.send('¡API funcionando correctamente desde Render!');
+  res.send('¡Hola!, estamos subiendo los archivos :) .......');
 });
 
 connectToDB();
